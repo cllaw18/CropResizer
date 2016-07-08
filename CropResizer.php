@@ -4,6 +4,7 @@
 * CropResizer - php class to crop and resize image
 * ================================================
 * Copyright 2013-2016 Soyo Solution Company. and other contributors
+* http://www.soyosolution.com/
 * Released under the MIT license
 *
 * Reference:
@@ -48,7 +49,6 @@ class CropResizer{
      */
     public function resizeKeepRatioByHeight($dst_h, $resultDirPath){
         $dst_w = $dst_h * (1 + $this->ratio);
-        //echo 'Result is w:'.$dst_w.' x '.$dst_h.".<br /><br />";
         self::resizeImg($dst_w, $dst_h, $resultDirPath);
     }
 
@@ -128,10 +128,5 @@ class CropResizer{
         $this->src_h = $size['h'];
         return $size;
     }    
-    
-    private function getChangedTimes($dst_w, $src_w){
-        $times = $dst_w /$src_w;
-        return $times;
-    }
 }
 ?>

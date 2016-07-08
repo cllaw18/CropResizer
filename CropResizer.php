@@ -3,9 +3,6 @@
 * ================================================
 * CropResizer - php class to crop and resize image
 * ================================================
-* https://github.com/soyosolution/validation-with-lightbox
-* http://tool.soyosolution.com/validation-with-lightbox/
-*
 * Copyright 2013-2016 Soyo Solution Company. and other contributors
 * Released under the MIT license
 *
@@ -60,8 +57,8 @@ class CropResizer{
      *
      * @param  int    $dst_w          Thumb width
      * @param  int    $dst_h          Thumb height
-     * @param  int    $dst_x          X-coordinate of destination point, value 0
-     * @param  int    $dst_y          Y-coordinate of destination point, fix by front-end, value 0
+     * @param  int    $dst_x          X-coordinate of the destination point to be cropped
+     * @param  int    $dst_y          Y-coordinate of the destination point to be cropped
      * @param  Stting $resultDirPath  Result image output path.
      * @reture void
      */
@@ -89,8 +86,8 @@ class CropResizer{
      * @named as sth like 1455181621_725588_250x100.jpg
      * @param int    $dst_w          Thumb width
      * @param int    $dst_h          Thumb height
-     * @param int    $dst_x          X-coordinate of destination point, value 0
-     * @param int    $dst_y          Y-coordinate of destination point, fix by front-end, value 0
+     * @param int    $dst_x          X-coordinate of the destination point to be cropped
+     * @param int    $dst_y          Y-coordinate of the destination point to be cropped
      * @param Stting $resultDirPath  Result image output path.
      */
     private function cropResize($dst_w, $dst_h, $src_x, $src_y, $resultDirPath){

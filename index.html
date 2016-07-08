@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Cropresizer by soyosolution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Cropresizer</h1>
+      <h2 class="project-tagline">A php class to resize and crop image.</h2>
+      <a href="https://github.com/soyosolution/CropResizer" class="btn">View on GitHub</a>
+      <a href="https://github.com/soyosolution/CropResizer/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/soyosolution/CropResizer/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="cropresizer" class="anchor" href="#cropresizer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CropResizer</h1>
+
+<p>CropResizer is a php class to resize and crop image.</p>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use</h2>
+
+<h3>
+<a id="step-1--load-cropresizer-class-file" class="anchor" href="#step-1--load-cropresizer-class-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1 : Load CropResizer class file</h3>
+
+<p>Including the CropResizer class file <code>CropResizer.php</code> before you use it:</p>
+
+<pre><code>include "CropResizer.php";
+</code></pre>
+
+<h3>
+<a id="step-2--create-a-cropresizer-object" class="anchor" href="#step-2--create-a-cropresizer-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2 : Create a CropResizer Object</h3>
+
+<p>Then create a CropResizer Object with source image path as argument, for example, source image <code>3105589762.jpg</code> to be handled is located at <code>samples</code> folder in this sample project so the argument is <code>samples/3105589762.jpg</code>.</p>
+
+<pre><code>$cropResizer = new CropResizer("samples/3105589762.jpg");
+</code></pre>
+
+<p>*Beware the path is sys path but not img url</p>
+
+<h3>
+<a id="step-3--call-resize-or-crop-functions" class="anchor" href="#step-3--call-resize-or-crop-functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3 : Call resize or crop functions</h3>
+
+<p>There are 3 functions to do resize and cropping, they are <code>resizeKeepRatioByWidth()</code>, <code>resizeKeepRatioByHeight()</code> and <code>cropImg()</code>.</p>
+
+<p><strong>Methods to resize image</strong></p>
+
+<pre><code>$cropResizer-&gt;resizeKeepRatioByWidth(250, "samples/3105589762_keepratio_by_w.jpg");
+$cropResizer-&gt;resizeKeepRatioByHeight(250, "samples/3105589762_keepratio_by_h.jpg");
+</code></pre>
+
+<p><em>resizeKeepRatioByWidth($dst_w, $resultDirPath)</em></p>
+
+<blockquote>
+<p><code>$dst_w</code> is target width of your resized output image.<br>
+<code>$resultDirPath</code> is directory path of your resized image.</p>
+</blockquote>
+
+<p><em>resizeKeepRatioByHeight($dst_h, $resultDirPath)</em></p>
+
+<blockquote>
+<p><code>$dst_h</code> is target height of your resized output image.<br>
+<code>$resultDirPath</code> is directory path of your resized image.</p>
+</blockquote>
+
+<p><strong>Methods to crop image</strong></p>
+
+<pre><code>$cropResizer-&gt;cropImg(250,123,100,100,"samples/3105589762_crop.jpg");
+</code></pre>
+
+<p><em>cropImg($dst_w, $dst_h, $src_x, $src_y, $resultDirPath)</em></p>
+
+<blockquote>
+<p><code>$dst_w</code> is target width of your cropped output image<br>
+<code>$dst_h</code> is target height of your cropped output image<br>
+<code>$dst_x</code> is X-coordinate of the starting point to be cropped (X-coordinate of top-left corner) in your original image.<br>
+<code>$dst_y</code> is Y-coordinate of the starting point to be cropped (Y-coordinate of top-left corner) in your original image.<br>
+<code>$resultDirPath</code> is the output path of your cropped image.<br></p>
+</blockquote>
+
+<h2>
+<a id="samples" class="anchor" href="#samples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Samples</h2>
+
+<p>There are a <code>demo.php</code> and a folder named <code>samples</code> as the example and 2 sample images named <code>3105589762.jpg</code> and <code>butterfly-wallpaper.jpeg</code> was added inside. Resized or cropped images should be added in this directory after you run the demo.php :</p>
+
+<ul>
+<li>3105589762_crop.jpg</li>
+<li>3105589762_keepratio_by_h.jpg</li>
+<li>3105589762_keepratio_by_w.jpg</li>
+<li>butterfly_crop.jpg</li>
+<li>butterfly_h150_keepratio_by_h.jpg</li>
+<li>butterfly_w600_keepratio_by_w.jpg</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/soyosolution/CropResizer">Cropresizer</a> is maintained by <a href="https://github.com/soyosolution">soyosolution</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>

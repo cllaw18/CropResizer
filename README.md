@@ -44,11 +44,11 @@ $cropResizer->cropImg(250,123,100,100,"samples/3105589762_crop.jpg");
 
 _cropImg($dst_w, $dst_h, $src_x, $src_y, $resultDirPath)_
 
->`$dst_w` is target width of your cropped output image
->`$dst_h` is target height of your cropped output image
->`$dst_x` is X-coordinate of the starting point to be cropped (X-coordinate of top-left corner) in your original image.
->`$dst_y` is Y-coordinate of the starting point to be cropped (Y-coordinate of top-left corner) in your original image.
->`$resultDirPath` is the output path of your cropped image.
+>`$dst_w` is target width of your cropped output image<br />
+>`$dst_h` is target height of your cropped output image<br />
+>`$dst_x` is X-coordinate of the starting point to be cropped (X-coordinate of top-left corner) in your original image.<br />
+>`$dst_y` is Y-coordinate of the starting point to be cropped (Y-coordinate of top-left corner) in your original image.<br />
+>`$resultDirPath` is the output path of your cropped image.<br />
 
 ##Samples
 There are a `demo.php` and a folder named `samples` as the example and 2 sample images named `3105589762.jpg` and `butterfly-wallpaper.jpeg` was added inside. Resized or cropped images should be added in this directory after you run the demo.php :

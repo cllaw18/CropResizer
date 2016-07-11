@@ -38,7 +38,7 @@ class CropResizer{
     public function resizeKeepRatioByWidth($dst_w, $resultDirPath){
         $changePersent = $dst_w / $this->src_w;
         $dst_h = $this->src_h * $changePersent;
-        self::resizeImg($dst_w, $dst_h, $resultDirPath, $save);
+        self::resizeImg($dst_w, $dst_h, $resultDirPath);
     }
 
     /**
@@ -51,7 +51,7 @@ class CropResizer{
     public function resizeKeepRatioByHeight($dst_h, $resultDirPath){
         $changePersent = $dst_h / $this->src_h;
         $dst_w = $this->src_w * $changePersent;
-        self::resizeImg($dst_w, $dst_h, $resultDirPath, $save);
+        self::resizeImg($dst_w, $dst_h, $resultDirPath);
     }
 
     /**

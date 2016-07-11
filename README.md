@@ -77,6 +77,12 @@ There are a `demo.php` and a folder named `samples` as the example and 2 sample 
 - butterfly_crop.jpg
 - butterfly_h150_keepratio_by_h.jpg
 - butterfly_w600_keepratio_by_w.jpg
+
+##Updates
+11/07/2016 - Fix bugs and update: Update incorrect formula to resize image by height
+
+1. Add support to handle gif and png images.
+2. Fix bugs and update: Update incorrect formula to resize image by height
  
 ##Offical page:
 http://tool.soyosolution.com/php_crop_resizer/

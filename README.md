@@ -1,5 +1,23 @@
 # CropResizer
-CropResizer is a php class to resize and crop images.
+CropResizer is a php class which's using GD library to resize and crop images. There are the features available : 
+
+1. Resize image by specified width. 
+2. Resize image by specified height.
+3. Crop and resize an image. 
+
+##Requirement
+Firstly, before you use this class please make sure your GD library (version2) is enabled.<br/>
+[http://php.net/manual/en/image.installation.php](http://php.net/manual/en/image.installation.php)
+
+And there are some links may help if you don't get that:
+- [How do I install GD on my windows server version of PHP] (http://stackoverflow.com/questions/7851011/how-do-i-install-gd-on-my-windows-server-version-of-php)
+- [How to install PHP GD2 library on Ubuntu] (http://lifeonubuntu.com/how-to-install-php-gd2-library-on-ubuntu/)
+- [CentOS: Enabling GD Support in PHP Installation](http://stackoverflow.com/questions/9024946/centos-enabling-gd-support-in-php-installation)
+
+
+###Tested enviroment:
+1. Windows 8, PHP Version 5.6.15 with GD Version	bundled (2.1.0 compatible), FreeType Version	2.5.5
+2. CentOS 7, PHP Version 5.4.16 with GD Version	bundled (2.1.0 compatible), FreeType Version	2.4.11
 
 ##How to use
 ###Step 1 : Load CropResizer class file 

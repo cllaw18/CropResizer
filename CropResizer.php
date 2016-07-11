@@ -91,14 +91,14 @@ class CropResizer{
      * This is a function to crop, resize and save image, 
      *
      * @named as sth like 1455181621_725588_250x100.jpg
-     * @imgSrcPath   $$imgSrcPath    ImageSource
+     * @param String $imgSrcPath    ImageSource
      * @param int    $src_x          x-coordinate of source point.
      * @param int    $src_y          y-coordinate of source point.   
      * @param int    $dst_w          Thumb width
      * @param int    $dst_h          Thumb height
      * @param int    $dst_x          X-coordinate of the destination point to be cropped
      * @param int    $dst_y          Y-coordinate of the destination point to be cropped
-     * @param Stting $resultDirPath  Result image output path.
+     * @param String $resultDirPath  Result image output path.
      */
      private function cropResize($imgSrcPath, $resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h, $save=true){
         $text = explode('.', $resultDirPath);
@@ -111,6 +111,12 @@ class CropResizer{
             $dst_temp_image = imagecreatetruecolor($dst_w, $dst_h);
             if($fileType == 'jpeg') $fileType = 'jpg';
               switch($fileType){
+                switch($fileType){
+-                case 'bmp': 
+-                    $temp_image = imagecreatefromwbmp($this->imgSrcPath); 
+-                    imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+-                    if($save)imagejpeg($dst_temp_image, $target_filename);
+-                    break;                  
                 case 'gif': 
                     $temp_image = imagecreatefromgif($imgSrcPath); 
                     imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);

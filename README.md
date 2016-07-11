@@ -1,5 +1,5 @@
 # CropResizer
-CropResizer is a php class to resize and crop image.
+CropResizer is a php class to resize and crop images.
 
 ##How to use
 ###Step 1 : Load CropResizer class file 

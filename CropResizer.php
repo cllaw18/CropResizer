@@ -65,7 +65,12 @@ class CropResizer{
      * @reture void
      */
     public function cropImg($dst_w, $dst_h, $src_x, $src_y, $resultDirPath){
-        self::cropResize($resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $dst_w, $dst_h);
+        if($dst_w > $this->src_w || $dst_h > $this->src_h) {//strange case
+            return "Warming: your requested crop-area bigger then source image or some area is over the source. Image haven't been cropped.";
+        }else{
+            self::cropResize($this->imgSrcPath, $resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $dst_w, $dst_h);
+        }
+        
     }    
     
     //################################################################################################
@@ -79,13 +84,14 @@ class CropResizer{
      * @return void
      */
     private function resizeImg($dst_w, $dst_h, $resultDirPath){
-        self::cropResize($resultDirPath, 0, 0, $dst_w, $dst_h, $this->src_w, $this->src_h);
+        self::cropResize($this->imgSrcPath, $resultDirPath, 0, 0, $dst_w, $dst_h, $this->src_w, $this->src_h);
     }
 
     /**
      * This is a function to crop, resize and save image, 
      *
      * @named as sth like 1455181621_725588_250x100.jpg
+     * @imgSrcPath   $$imgSrcPath    ImageSource
      * @param int    $src_x          x-coordinate of source point.
      * @param int    $src_y          y-coordinate of source point.   
      * @param int    $dst_w          Thumb width
@@ -94,7 +100,7 @@ class CropResizer{
      * @param int    $dst_y          Y-coordinate of the destination point to be cropped
      * @param Stting $resultDirPath  Result image output path.
      */
-     private function cropResize($resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h){
+     private function cropResize($imgSrcPath, $resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h, $save=true){
         $text = explode('.', $resultDirPath);
         $imgsrc_name_temp = explode('.', $resultDirPath);//e.g. [0]=>2645635356, [1]=>jpg
         $target_filename = $imgsrc_name_temp[0].'.'.$imgsrc_name_temp[1];
@@ -105,27 +111,22 @@ class CropResizer{
             $dst_temp_image = imagecreatetruecolor($dst_w, $dst_h);
             if($fileType == 'jpeg') $fileType = 'jpg';
               switch($fileType){
-                case 'bmp': 
-                    $temp_image = imagecreatefromwbmp($this->imgSrcPath); 
-                    imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
-                    imagewbmp($dst_temp_image, $target_filename);
-                    break;
                 case 'gif': 
-                    $temp_image = imagecreatefromgif($this->imgSrcPath); 
+                    $temp_image = imagecreatefromgif($imgSrcPath); 
                     imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
-                    imagegif($dst_temp_image, $target_filename);
+                    if($save)imagegif($dst_temp_image, $target_filename);
                     break;
                 case 'jpg': 
-                    $temp_image = imagecreatefromjpeg($this->imgSrcPath); 
+                    $temp_image = imagecreatefromjpeg($imgSrcPath); 
                     imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
-                    imagejpeg($dst_temp_image, $target_filename);
+                    if($save)imagejpeg($dst_temp_image, $target_filename);
                     break;
                 case 'png': 
-                    $temp_image = imagecreatefrompng($this->imgSrcPath); 
+                    $temp_image = imagecreatefrompng($imgSrcPath); 
                     imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
-                    imagepng($dst_temp_image, $target_filename);
+                    if($save)imagepng($dst_temp_image, $target_filename);
                     break;
-                default : return "Unsupported picture type, we support jpg, jpeg, png, gif and bmp";
+                default : return "Unsupported picture type, we support jpg, jpeg, png, gif";
               }
         }catch(Exception $e){
             print_r($e);

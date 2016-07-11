@@ -5,27 +5,27 @@
 * ================================================
 * Copyright 2013-2016 Soyo Solution Company. and other contributors
 * http://www.soyosolution.com/
+* http://tool.soyosolution.com/php_crop_resizer/
 * Released under the MIT license
 *
 * Reference:
 * http://php.net/manual/en/function.imagecopyresampled.php
 *
-* Last updated date: 2016-07-08
+* Release date     : 2016-07-08
+* Last updated date: 2016-07-11
 */
 
 class CropResizer{
     
     private $imgSrcPath;
-    private $src_w; //Crop end X position in original image
-    private $src_h; //Crop end Y position in original image
-    private $ratio; //Ratio of original image
+    private $src_w; //Source width.
+    private $src_h; //Source height.
     
     function __construct($imgSrcPath) {
         $this->imgSrcPath = $imgSrcPath;
         $size = self::getImgSize();
         $this->src_w = $size['w'];
         $this->src_h = $size['h'];
-        $this->ratio = self::getImgRatio();
     }    
     
     /**
@@ -36,8 +36,9 @@ class CropResizer{
      * @return void
      */
     public function resizeKeepRatioByWidth($dst_w, $resultDirPath){
-        $dst_h = $dst_w * $this->ratio;
-        self::resizeImg($dst_w, $dst_h, $resultDirPath);
+        $changePersent = $dst_w / $this->src_w;
+        $dst_h = $this->src_h * $changePersent;
+        self::resizeImg($dst_w, $dst_h, $resultDirPath, $save);
     }
 
     /**
@@ -48,8 +49,9 @@ class CropResizer{
      * @return void
      */
     public function resizeKeepRatioByHeight($dst_h, $resultDirPath){
-        $dst_w = $dst_h * (1 + $this->ratio);
-        self::resizeImg($dst_w, $dst_h, $resultDirPath);
+        $changePersent = $dst_h / $this->src_h;
+        $dst_w = $this->src_w * $changePersent;
+        self::resizeImg($dst_w, $dst_h, $resultDirPath, $save);
     }
 
     /**
@@ -63,7 +65,7 @@ class CropResizer{
      * @reture void
      */
     public function cropImg($dst_w, $dst_h, $src_x, $src_y, $resultDirPath){
-        self::cropResize($dst_w, $dst_h, $src_x, $src_y, $resultDirPath);
+        self::cropResize($resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $dst_w, $dst_h);
     }    
     
     //################################################################################################
@@ -77,46 +79,59 @@ class CropResizer{
      * @return void
      */
     private function resizeImg($dst_w, $dst_h, $resultDirPath){
-        self::cropResize($dst_w, $dst_h, 0, 0, $resultDirPath);
+        self::cropResize($resultDirPath, 0, 0, $dst_w, $dst_h, $this->src_w, $this->src_h);
     }
 
     /**
      * This is a function to crop, resize and save image, 
      *
      * @named as sth like 1455181621_725588_250x100.jpg
+     * @param int    $src_x          x-coordinate of source point.
+     * @param int    $src_y          y-coordinate of source point.   
      * @param int    $dst_w          Thumb width
      * @param int    $dst_h          Thumb height
      * @param int    $dst_x          X-coordinate of the destination point to be cropped
      * @param int    $dst_y          Y-coordinate of the destination point to be cropped
      * @param Stting $resultDirPath  Result image output path.
      */
-    private function cropResize($dst_w, $dst_h, $src_x, $src_y, $resultDirPath){
+     private function cropResize($resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h){
         $text = explode('.', $resultDirPath);
         $imgsrc_name_temp = explode('.', $resultDirPath);//e.g. [0]=>2645635356, [1]=>jpg
         $target_filename = $imgsrc_name_temp[0].'.'.$imgsrc_name_temp[1];
         
         //Resize and save for another size
+        $fileType = strtolower ($imgsrc_name_temp[1]);
         try{
             $dst_temp_image = imagecreatetruecolor($dst_w, $dst_h);
-            $temp_image = imagecreatefromjpeg($this->imgSrcPath);
-            imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $src_x+$dst_w, $src_y+$dst_h, $this->src_w, $this->src_h);//gem content
-            imagejpeg($dst_temp_image, $target_filename);
+            if($fileType == 'jpeg') $fileType = 'jpg';
+              switch($fileType){
+                case 'bmp': 
+                    $temp_image = imagecreatefromwbmp($this->imgSrcPath); 
+                    imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+                    imagewbmp($dst_temp_image, $target_filename);
+                    break;
+                case 'gif': 
+                    $temp_image = imagecreatefromgif($this->imgSrcPath); 
+                    imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+                    imagegif($dst_temp_image, $target_filename);
+                    break;
+                case 'jpg': 
+                    $temp_image = imagecreatefromjpeg($this->imgSrcPath); 
+                    imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+                    imagejpeg($dst_temp_image, $target_filename);
+                    break;
+                case 'png': 
+                    $temp_image = imagecreatefrompng($this->imgSrcPath); 
+                    imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+                    imagepng($dst_temp_image, $target_filename);
+                    break;
+                default : return "Unsupported picture type, we support jpg, jpeg, png, gif and bmp";
+              }
         }catch(Exception $e){
             print_r($e);
         }
     }
-    
-    /**
-     * Get ratio of original image, the image source
-     * @return int radio     Ratio of original image
-     */    
-    private function getImgRatio(){
-        $ratio = 1;
-        $size = self::getImgSize();
-        $ratio = $size['h']/$size['w'];
-        return $ratio;
-    }
-    
+        
     /**
      * Get width and height of your image source
      * @return array  $size    An array storing width and height
@@ -127,6 +142,7 @@ class CropResizer{
         $this->src_w = $size['w'];
         $this->src_h = $size['h'];
         return $size;
-    }    
+    }
+
 }
 ?>

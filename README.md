@@ -87,6 +87,7 @@ There are a `demo.php` and a folder named `samples` as the example and 2 sample 
 14/09/2016 - Correct Bug
 
 1. Remove duplicated switch statement which make the script can't run.
+2. Add the case if selected crop-area bigger then the maximum x or y-coordinate of source image, cut overflowed crop area and keep cropped image ratio same as required ratio.
 
 ##Offical page:
 http://tool.soyosolution.com/php_crop_resizer/

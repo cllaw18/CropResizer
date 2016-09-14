@@ -83,6 +83,10 @@ There are a `demo.php` and a folder named `samples` as the example and 2 sample 
 
 1. Add support to handle gif and png images.
 2. Fix bugs and update: Update incorrect formula to resize image by height
- 
+
+14/09/2016 - Correct Bug
+
+1. Remove duplicated switch statement which make the script can't run.
+
 ##Offical page:
 http://tool.soyosolution.com/php_crop_resizer/

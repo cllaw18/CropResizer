@@ -12,7 +12,7 @@
 * http://php.net/manual/en/function.imagecopyresampled.php
 *
 * Release date     : 2016-07-08
-* Last updated date: 2016-07-11
+* Last updated date: 2016-09-16
 */
 
 class CropResizer{
@@ -65,14 +65,20 @@ class CropResizer{
      * @reture void
      */
     public function cropImg($dst_w, $dst_h, $src_x, $src_y, $resultDirPath){
-        if($dst_w > $this->src_w || $dst_h > $this->src_h) {//strange case
-            return "Warming: your requested crop-area bigger then source image or some area is over the source. Image haven't been cropped.";
+        if(($this->src_w - $src_x < $dst_w) || ($this->src_h - $src_y < $dst_h)) {
+            if($this->src_w - $src_x > $this->src_h - $src_y) {
+                $ratio = 1 - (($dst_h - ($this->src_h - $src_y)) / $dst_h);
+            }else{ // < and ==
+                $ratio = 1 - (($dst_w - ($this->src_w - $src_x)) / $dst_w);
+            }
+            $cropped_dst_h = $dst_h * $ratio;
+            $cropped_dst_w = $dst_w * $ratio;
+            self::cropResize($this->imgSrcPath, $resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $cropped_dst_w, $cropped_dst_h);                            
         }else{
             self::cropResize($this->imgSrcPath, $resultDirPath, $src_x, $src_y, $dst_w, $dst_h, $dst_w, $dst_h);
         }
         
     }    
-    
     //################################################################################################
     
     /**

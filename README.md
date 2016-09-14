@@ -74,9 +74,15 @@ There are a `demo.php` and a folder named `samples` as the example and 2 sample 
 - 3105589762_crop.jpg
 - 3105589762_keepratio_by_h.jpg
 - 3105589762_keepratio_by_w.jpg
+- 3105589762_crop_overflow1.jpg
+- 3105589762_crop_overflow2_right.jpg
+- 3105589762_crop_overflow2_bottom.jpg
 - butterfly_crop.jpg
 - butterfly_h150_keepratio_by_h.jpg
 - butterfly_w600_keepratio_by_w.jpg
+- butterfly_crop_overflow1.jpg
+- butterfly_crop_overflow2_right.jpg
+- butterfly_crop_overflow3_bottom.jpg
 
 ##Updates
 11/07/2016 - Fix bugs and update: Update incorrect formula to resize image by height
@@ -90,4 +96,5 @@ There are a `demo.php` and a folder named `samples` as the example and 2 sample 
 2. Add the case if selected crop-area bigger then the maximum x or y-coordinate of source image, cut overflowed crop area and keep cropped image ratio same as required ratio.
 
 ##Offical page:
+For detailed information and latest doc updates, you can visit our page:<br />
 http://tool.soyosolution.com/php_crop_resizer/

@@ -111,12 +111,11 @@ class CropResizer{
             $dst_temp_image = imagecreatetruecolor($dst_w, $dst_h);
             if($fileType == 'jpeg') $fileType = 'jpg';
               switch($fileType){
-                switch($fileType){
--                case 'bmp': 
--                    $temp_image = imagecreatefromwbmp($this->imgSrcPath); 
--                    imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
--                    if($save)imagejpeg($dst_temp_image, $target_filename);
--                    break;                  
+                case 'bmp': 
+                    $temp_image = imagecreatefromwbmp($this->imgSrcPath); 
+                    imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+                    if($save)imagejpeg($dst_temp_image, $target_filename);
+                    break;                  
                 case 'gif': 
                     $temp_image = imagecreatefromgif($imgSrcPath); 
                     imagecopyresampled( $dst_temp_image, $temp_image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);

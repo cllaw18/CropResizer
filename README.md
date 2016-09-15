@@ -1,5 +1,5 @@
 # CropResizer
-CropResizer is a php class which's using GD library to resize and crop images. There are the features available : 
+CropResizer is a php class which's using GD library to resize and crop images, supporting images in bmp, gif, jpg and png format. There are the features available : 
 
 1. Resize image by specified width. 
 2. Resize image by specified height.
